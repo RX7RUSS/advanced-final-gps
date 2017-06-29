@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import PosWatch from './PosWatch';
-import GetPos from './GetPos';
-import Title from './Title';
+import PosWatch from './components/PosWatch';
+import GetPos from './components/GetPos';
+import Title from './components/Title';
 
 export default class App extends React.Component {
   render() {
