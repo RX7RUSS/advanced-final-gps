@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import PosWatch from './components/PosWatch';
 import GetPos from './components/GetPos';
 import Title from './components/Title';
+import MyMap from './components/MyMap';
 
 export default class App extends React.Component {
   render() {
@@ -10,6 +11,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Title />
         <PosWatch />
+        <MyMap />
         <GetPos />
       </View>
     );
