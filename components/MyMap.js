@@ -7,8 +7,11 @@ const styles = StyleSheet.create({
 map: {
   width: 250,
   height: 250,
+  borderRadius: 20,
   alignItems: 'center',
   justifyContent: 'center',
+  borderColor: '#000',
+  borderWidth: 3,
 },
 });
 
@@ -20,9 +23,11 @@ class MyMap extends Component {
     this.state = {
       latitude: null,
       longitude: null,
-      error: null,
+      latitudeDelta: null,
+      longitudeDelta: null,
     };
   }
+
 
   getInitialState() {
   return {
@@ -34,7 +39,6 @@ class MyMap extends Component {
     },
   };
 }
-
 
 
 render() {

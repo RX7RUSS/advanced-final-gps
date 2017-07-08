@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import {createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import thunkMiddleware from 'redux-think';
+import createLogger from 'redux-logger';
 import PosWatch from './components/PosWatch';
 import GetPos from './components/GetPos';
 import Title from './components/Title';
@@ -24,15 +28,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 5,
-    borderStyle: 'dotted',
-    borderColor: '#bbb',
+    borderWidth: 9,
+    borderStyle: 'solid',
+    borderColor: 'lightblue',
     borderRadius: 20,
     padding: 20,
     margin: 30,
   },
   titleText: {
     fontSize: 20,
-    fontWeight: '800'
+    fontWeight: '800',
+    borderBottomWidth: 2,
+    borderStyle: 'solid',
+    borderBottomColor: '#fff'
   },
 });
