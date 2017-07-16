@@ -1,9 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 
-function latLong(state={coordinates: null}, action) {
+function latLong(state = {coordinates: [] }, action) {
   switch (action.type) {
     case "LAT_LONG": {
-      return {...state, coordinates: action.payload}
+      state.coordinates.push(action.payload);
+      return {...state}
     }
 
     default:

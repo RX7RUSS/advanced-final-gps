@@ -36,9 +36,6 @@ class GetPos extends Component {
     }
 
     getCoordinatesHandler() {
-      console.log(this.props.coordinates);
-      console.assert(this.props.coordinates == null);
-      console.log(this.state.latitude);
       this.props.dispatch({ type: "LAT_LONG", payload: {lat: this.state.latitude, long: this.state.longitude} })
       console.log(this.props.coordinates);
     }
