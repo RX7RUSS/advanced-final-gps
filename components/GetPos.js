@@ -46,9 +46,9 @@ class GetPos extends Component {
           <Text style={styles.titleText}>Log Current Coordinates</Text>
           <Text>Latitude: {this.state.latitude}</Text>
           <Text>Longitude: {this.state.longitude}</Text>
-          <Button onPress={this.getCoordinatesHandler}
+          <Button style={styles.button} onPress={this.getCoordinatesHandler}
             title="Save Location"
-            color="grey"
+            color="black"
             />
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View>
@@ -59,6 +59,10 @@ class GetPos extends Component {
 
 const styles = StyleSheet.create({
   titleText: {
+    fontSize: 20,
+    fontWeight: '800'
+  },
+  button: {
     fontSize: 20,
     fontWeight: '800'
   },

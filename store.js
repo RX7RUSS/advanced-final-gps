@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
 
 function latLong(state = {coordinates: [] }, action) {
   switch (action.type) {
@@ -17,4 +18,10 @@ const rootReducer = combineReducers({
   latLong,
 })
 
-export default createStore(rootReducer)
+const logger = createLogger({
+  colors: false,
+})
+export default createStore(
+  rootReducer,
+  applyMiddleware(logger)
+)
