@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import store from '../store';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
+
+//ES7 decorator used to wrap 'GetPos' class in the connect method
 @connect((store) => {
   return {
     coordinates: store.latLong.coordinates
