@@ -13,7 +13,7 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 class GetPos extends Component {
     constructor(props) {
       super(props);
-
+      this.posref = this.props.firebaseApp.database().ref();
       this.getCoordinatesHandler = this.getCoordinatesHandler.bind(this);
 
       this.state = {
@@ -35,10 +35,33 @@ class GetPos extends Component {
         (error) => this.setState({ error: error.message }),
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
       );
+      this.listenForPos(this.posref);
     }
+
+    listenForPos(posref) {
+    posref.on('value', (snap) => {
+
+      // get children as an array
+      var positions = [];
+      snap.forEach((child) => {
+        positions.push({
+          latitude: child.val().latitude,
+          longitude: child.val().longitude,
+          _key: child.key
+        });
+      });
+      console.log(positions);
+
+      this.setState({
+        // dataSource: this.state.dataSource.cloneWithRows(positions)
+      });
+
+    });
+  }
 
     getCoordinatesHandler() {
       this.props.dispatch({ type: "LAT_LONG", payload: {lat: this.state.latitude, long: this.state.longitude} })
+      this.posref.push({lat: this.state.latitude, long: this.state.longitude});
       console.log(this.props.coordinates);
     }
 
