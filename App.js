@@ -11,11 +11,12 @@ import * as firebase from 'firebase';
 
 
 var config = {
- apiKey: "AIzaSyCP4pT-Id4C2e7A_lq1CeNz7qGPtCjWYT0",
- authDomain: "gps-app-cb724.firebaseapp.com",
- databaseURL: "https://gps-app-cb724.firebaseio.com",
- storageBucket: "gps-app-cb724.appspot.com",
+  apiKey: 'AIzaSyCP4pT-Id4C2e7A_lq1CeNz7qGPtCjWYT0',
+  authDomain: 'gps-app-cb724.firebaseapp.com',
+  databaseURL: 'https://gps-app-cb724.firebaseio.com',
+  storageBucket: 'gps-app-cb724.appspot.com',
 };
+
 const firebaseApp = firebase.initializeApp(config);
 
 
