@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, PropTypes } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import store from '../store';
+import { connect } from 'react-redux';
 
 
-const styles = StyleSheet.create({
-  map: {
-    width: 250,
-    height: 250,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: '#000',
-    borderWidth: 3,
-  },
-});
 
-
+@connect((store) => {
+  return {
+    position: store.currentPosition.position
+  };
+})
 class MyMap extends Component {
   constructor(props) {
     super(props);
@@ -36,17 +31,35 @@ class MyMap extends Component {
     console.log(this.state.region);
     return (
       <MapView style={styles.map}
-        region={this.state.region}
+        region={this.props.position}
         onRegionChange={this.onRegionChange}
-      >
+        >
       <MapView.Marker
-        coordinate={this.state.region}
-        title='test marker'
-        description='test description'
+        style={styles.markerStyle}
+        coordinate={this.props.position}
+        title='Current Position Marker'
+        description='Click "Save Location" Below!'
         />
       </MapView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  map: {
+    width: 250,
+    height: 350,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#000',
+    borderWidth: 3,
+    marginTop: 15,
+    textAlign: 'center',
+  },
+  markerStyle: {
+    textAlign: 'center',
+  },
+});
 
 export default MyMap;

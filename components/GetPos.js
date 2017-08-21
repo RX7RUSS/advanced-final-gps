@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 
 
-//ES7 decorator used to wrap 'GetPos' class in the connect method
+//ES7 decorator used to wrap 'GetPos' class in the connect method//
+// eslint-disable-next-line //
 @connect((store) => {
   return {
     coordinates: store.latLong.coordinates
@@ -33,48 +34,42 @@ class GetPos extends Component {
           });
         },
         (error) => this.setState({ error: error.message }),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 100 },
       );
       this.listenForPos(this.posref);
     }
 
     listenForPos(posref) {
-    posref.on('value', (snap) => {
+      posref.on('value', (snap) => {
 
-      // get children as an array
-      var positions = [];
-      snap.forEach((child) => {
-        positions.push({
-          latitude: child.val().latitude,
-          longitude: child.val().longitude,
-          _key: child.key
+        // get children as an array
+        var positions = [];
+        snap.forEach((child) => {
+          positions.push({
+            latitude: child.val().latitude,
+            longitude: child.val().longitude,
+            _key: child.key
+          });
         });
-      });
-      console.log(positions);
 
-      this.setState({
-        // dataSource: this.state.dataSource.cloneWithRows(positions)
-      });
+        this.setState({
+          // dataSource: this.state.dataSource.cloneWithRows(positions)
+        });
 
-    });
-  }
+      });
+    }
 
     getCoordinatesHandler() {
       this.props.dispatch({ type: "LAT_LONG", payload: {lat: this.state.latitude, long: this.state.longitude} })
       this.posref.push({lat: this.state.latitude, long: this.state.longitude});
-      console.log(this.props.coordinates);
     }
 
     render() {
       return (
         <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={styles.titleText}>Log Current Coordinates</Text>
-          <Text>Latitude: {this.state.latitude}</Text>
-          <Text>Longitude: {this.state.longitude}</Text>
-          <Button style={styles.button} onPress={this.getCoordinatesHandler}
-            title="Save Location"
-            color="black"
-            />
+          <TouchableOpacity style={styles.buttonStyle} onPress={this.getCoordinatesHandler}>
+            <Text style={styles.titleText}>Save Location</Text>
+          </TouchableOpacity>
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View>
       );
@@ -84,13 +79,25 @@ class GetPos extends Component {
 
 const styles = StyleSheet.create({
   titleText: {
-    fontSize: 20,
-    fontWeight: '800'
+    fontSize: 18,
+    fontWeight: '800',
+    textAlign: 'center'
   },
-  button: {
-    fontSize: 20,
-    fontWeight: '800'
-  },
+  buttonStyle: {
+    backgroundColor: '#E5E5E5',
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: 'lightblue',
+    marginLeft: 5,
+    marginRight: 5,
+    marginTop: 10,
+    padding: 4,
+    height: 35,
+    width: 250,
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center'
+    }
 });
 
 export default GetPos;

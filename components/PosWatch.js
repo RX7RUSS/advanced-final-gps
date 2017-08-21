@@ -1,7 +1,14 @@
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Text, StyleSheet, PropTypes } from 'react-native';
+import store from '../store';
 
+@connect((store) => {
+  return {
+    coordinates: store.currentPosition.position
+  };
+})
 class PosWatch extends Component {
     constructor(props) {
     super(props);
@@ -16,14 +23,16 @@ class PosWatch extends Component {
   componentDidMount() {
     this.watchId = navigator.geolocation.watchPosition(
       (position) => {
-        this.setState({
+        let thisPosition = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           error: null,
-        });
+        }
+        this.setState(thisPosition);
+        this.props.dispatch({ type: "CURRENT_POS", payload: thisPosition });
       },
       (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 250, distanceFilter: 10 },
     );
   }
 

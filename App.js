@@ -20,7 +20,7 @@ var config = {
 const firebaseApp = firebase.initializeApp(config);
 
 
-export default class App extends React.Component {
+class App extends Component {
   render() {
     return (
       <Provider store={ store }>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 9,
+    borderWidth: 3,
     borderStyle: 'solid',
     borderColor: 'lightblue',
     borderRadius: 20,
@@ -56,3 +56,5 @@ const styles = StyleSheet.create({
     borderBottomColor: '#fff'
   },
 });
+
+export default App;
