@@ -49,7 +49,8 @@ class App extends Component {
                 <Button onPress={() => firebase.auth().signOut()}>Log Out</Button>
               </View>;
         case false:
-          return  <View style={{marginTop: 70}}>
+          return  <View style={{marginTop: 30}}>
+                    <Header headerText='GEOLOCATION SIGN IN' />
                     <LoginForm />
                   </View>;
         default:

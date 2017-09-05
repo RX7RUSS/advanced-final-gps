@@ -75,6 +75,13 @@ class LoginForm extends Component {
           {this.renderButton()}
         </CardSection>
 
+        <CardSection>
+          <Text style={{fontSize: 22}}>
+            Enter email and password. If you do not already have an account,
+            one will be created for you.
+          </Text>
+        </CardSection>
+
       </Card>
     );
   }
