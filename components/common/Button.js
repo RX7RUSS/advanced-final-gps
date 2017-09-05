@@ -28,6 +28,7 @@ const styles = {
     alignSelf: 'center',
     backgroundColor: '#d1f1f9',
     borderRadius: 5,
+    margin: 5,
     borderWidth: 1,
     borderColor: '#000',
     marginLeft: 5,

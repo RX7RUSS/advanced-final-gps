@@ -24,7 +24,7 @@ class GetPos extends Component {
       };
     }
 
-    componentDidMount() {
+    componentWillMount() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           this.setState({
@@ -52,9 +52,9 @@ class GetPos extends Component {
           });
         });
 
-        this.setState({
-          // dataSource: this.state.dataSource.cloneWithRows(positions)
-        });
+        // this.setState({
+        //   dataSource: this.state.dataSource.cloneWithRows(positions)
+        // });
 
       });
     }
