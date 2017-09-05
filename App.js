@@ -8,6 +8,8 @@ import Title from './components/Title';
 import MyMap from './components/MyMap';
 import store from './store';
 import * as firebase from 'firebase';
+import { Header, Button, Spinner, CardSection } from './components/common';
+import LoginForm from './components/LoginForm';
 
 
 var config = {
@@ -21,15 +23,44 @@ const firebaseApp = firebase.initializeApp(config);
 
 
 class App extends Component {
+
+  state = { loggedIn: null };
+
+    componentWillMount() {
+
+      firebase.auth().onAuthStateChanged((user) => {
+        // user && this.setState({ loggedIn: !!user});
+        if (user) {
+          this.setState({ loggedIn: true });
+        } else {
+          this.setState({ loggedIn: false });
+        }
+      });
+    }
+
+    renderContent() {
+      switch (this.state.loggedIn) {
+        case true:
+        return <View style={styles.container}>
+                <Title />
+                <PosWatch />
+                <MyMap />
+                <GetPos firebaseApp={firebaseApp}/>
+                <Button onPress={() => firebase.auth().signOut()}>Log Out</Button>
+              </View>;
+        case false:
+          return  <View style={{marginTop: 70}}>
+                    <LoginForm />
+                  </View>;
+        default:
+          return <Spinner size="large" />;
+      }
+    }
+
   render() {
     return (
       <Provider store={ store }>
-        <View style={styles.container}>
-          <Title />
-          <PosWatch />
-          <MyMap />
-          <GetPos firebaseApp={firebaseApp}/>
-        </View>
+        {this.renderContent()}
       </Provider>
     );
   }
