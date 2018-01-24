@@ -24,39 +24,42 @@ const firebaseApp = firebase.initializeApp(config);
 
 class App extends Component {
 
-  state = { loggedIn: null };
+  constructor(props){
+    super(props);
+    this.state = { loggedIn: false };
+  }
 
-    componentWillMount() {
+  componentWillMount() {
 
-      firebase.auth().onAuthStateChanged((user) => {
-        // user && this.setState({ loggedIn: !!user});
-        if (user) {
-          this.setState({ loggedIn: true });
-        } else {
-          this.setState({ loggedIn: false });
-        }
-      });
-    }
-
-    renderContent() {
-      switch (this.state.loggedIn) {
-        case true:
-        return <View style={styles.container}>
-                <Title />
-                <PosWatch />
-                <MyMap />
-                <GetPos firebaseApp={firebaseApp}/>
-                <Button onPress={() => firebase.auth().signOut()}>Log Out</Button>
-              </View>;
-        case false:
-          return  <View style={{marginTop: 30}}>
-                    <Header headerText='GEOLOCATION SIGN IN' />
-                    <LoginForm />
-                  </View>;
-        default:
-          return <Spinner size="large" />;
+    firebase.auth().onAuthStateChanged((user) => {
+      // user && this.setState({ loggedIn: !!user});
+      if (user) {
+        this.setState({ loggedIn: true });
+      } else {
+        this.setState({ loggedIn: false });
       }
+    });
+  }
+
+  renderContent() {
+    switch (this.state.loggedIn) {
+    case true:
+      return <View style={styles.container}>
+        <Title />
+        <PosWatch />
+        <MyMap />
+        <GetPos firebaseApp={firebaseApp}/>
+        <Button onPress={() => firebase.auth().signOut()}>Log Out</Button>
+      </View>;
+    case false:
+      return  <View style={{marginTop: 30}}>
+        <Header headerText='GEOLOCATION SIGN IN' />
+        <LoginForm />
+      </View>;
+    default:
+      return <Spinner size="large" />;
     }
+  }
 
   render() {
     return (
